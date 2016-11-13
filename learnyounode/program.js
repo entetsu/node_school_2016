@@ -1,13 +1,13 @@
 var http = require('http');
 
-var options = {
-  hostname: process.argv[2]
-}
-
+var all_data = '';
 http.get(process.argv[2], function(res){
-  var all_data = '';
   res.setEncoding('utf8');
   res.on('data', function(chunk){
-    console.log(chunk);
+    all_data = all_data + chunk;
+  });
+  res.on('end', function(){
+    console.log(all_data.length);
+    console.log(all_data);
   });
 });
